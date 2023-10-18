@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "LoadBalancingDemoConsole/1.0.0": {
+        "dependencies": {
+          "LoadBalancerSimluator.Engine": "1.0.0"
+        },
+        "runtime": {
+          "LoadBalancingDemoConsole.dll": {}
+        }
+      },
+      "LoadBalancerSimluator.Engine/1.0.0": {
+        "runtime": {
+          "LoadBalancerSimluator.Engine.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LoadBalancingDemoConsole/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LoadBalancerSimluator.Engine/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
