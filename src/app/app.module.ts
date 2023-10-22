@@ -14,7 +14,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { LoadBalancerComponent } from './components/load-balancer/load-balancer.component';
 import { NgxsModule } from '@ngxs/store';
 import { SimulationState } from './state/simulation/simulation.state';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
 
     // NGXS
     NgxsModule.forRoot([

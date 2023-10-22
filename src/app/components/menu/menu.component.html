@@ -1,35 +1,36 @@
 <div class="menu">
+  <div class="title">Load Balancer Simulator</div>
   <div class="options">
-    <div class="field">
-      <label class="label">Load Balancing Algorithm</label>
-      <div class="control">
-        <div class="select is-fullwidth">
-          <select
-            [(ngModel)]="selectedLoadBalancingAlgorithm"
-            (change)="onAlgorithmChange()"
-          >
-            <option
-              *ngFor="let algorithm of loadBalancingAlgorithms"
-              [value]="algorithm.id"
-            >
-              {{ algorithm.name }}
-            </option>
-          </select>
+    <ng-container [formGroup]="simulationConfig">
+      <!-- Drop down control -->
+      <div class="field">
+        <label class="label">Load Balancing Algorithm</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select formControlName="selectedLoadBalancingAlgorithm" >
+              <option
+                *ngFor="let algorithm of loadBalancingAlgorithms"
+                [value]="algorithm.id"
+              >
+                {{ algorithm.name }}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="field">
-      <label class="label">Request Frequency</label>
-      <div class="control">
-        <input
-          [(ngModel)]="requestInterval"
-          class="input"
-          type="number"
-          placeholder="Frequency of Incoming Requests"
-        />
+      <div class="field">
+        <label class="label">Request Frequency</label>
+        <div class="control">
+          <input
+            formControlName="requestInterval"
+            class="input"
+            type="number"
+            placeholder="Frequency of Incoming Requests"
+          />
+        </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 
   <div class="buttons">

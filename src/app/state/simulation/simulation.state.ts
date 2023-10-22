@@ -5,7 +5,7 @@ import { LoadBalancingAlgorithm } from "src/app/algorithems/algorithem.interface
 export class SimulationStateModel {
     Running: boolean | undefined;
     Started: boolean | undefined;
-    SelectedLoadBalancingAlgorithm: LoadBalancingAlgorithm | undefined;
+    SelectedLoadBalancingAlgorithm: number | undefined;
     RequestInterval: number | undefined;
 }
 
@@ -27,7 +27,7 @@ export class SimulationState {
     }
 
     @Selector()
-    static getSelectedLoadBalancingAlgorithm(state: SimulationStateModel) {
+    static getSelectedLoadBalancingAlgorithm(state: SimulationStateModel) : number | undefined{
         return state.SelectedLoadBalancingAlgorithm;
     }
 

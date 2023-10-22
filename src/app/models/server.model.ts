@@ -7,17 +7,20 @@ export class Server {
   weight: number;
   address: string;
   connections: number = 0;
+  responseTime: number = 100; // in milliseconds
 
   constructor(
     name: string,
     status: ServerStatus,
     weight: number,
-    address: string
+    address: string,
+    responseTime: number = 100
   ) {
     this.name = name;
     this.status = status;
     this.weight = weight;
     this.address = address;
+    this.responseTime = responseTime;
   }
 
   setServerStatus(status: ServerStatus) {
@@ -39,7 +42,7 @@ export class Server {
         if (this.connections === 0) {
         this.status = ServerStatus.idle;
       }
-    }, 500);
+    }, 500 + this.responseTime);
   }
 
   // return the server's weight

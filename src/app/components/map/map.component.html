@@ -1,6 +1,10 @@
 <div class="map">
   <div class="top-menu">
-    <app-menu (startSimulationEvent)="(this.startSimulation())" (stopSimulationEvent)="this.stopSimulation()"></app-menu>
+    <app-menu
+      (startSimulationEvent)="this.startSimulation()"
+      (stopSimulationEvent)="this.stopSimulation()"
+      (addServerEvent)="this.addServer()"
+    ></app-menu>
   </div>
   <div class="servers">
     <div *ngFor="let server of this.mapServers">

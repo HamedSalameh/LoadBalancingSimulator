@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { LoadBalancingAlgorithm } from 'src/app/algorithems/algorithem.interface';
 import { LoadBalancingAlgorithemsProviderService } from 'src/app/services/load-balancing-algorithems-provider.service';
@@ -11,9 +12,13 @@ import { SetRequestInterval, SetSelectedLoadBalancingAlgorithm } from 'src/app/s
 })
 export class MenuComponent {
 
+  // A form contains a drop for algorithms and a text input for the request interval
+  // The form should be bound to a model in your component
+  // The model should contain the selected algorithm and the request interval
+  simulationConfig!: FormGroup;
+
   requestInterval: number  = 500;
   loadBalancingAlgorithms: LoadBalancingAlgorithm[] = [];
-  selectedLoadBalancingAlgorithm: LoadBalancingAlgorithm | undefined; // Initialize with a default value if needed
 
   @Output() startSimulationEvent = new EventEmitter<void>();
   @Output() stopSimulationEvent = new EventEmitter<void>();
@@ -29,26 +34,27 @@ export class MenuComponent {
     this.loadBalancingAlgorithms =
       loadBalacingAlgorithems.getAllLoadBalancingAlgorithms();
 
-      this.selectedLoadBalancingAlgorithm = this.loadBalancingAlgorithms[0];
-  }
+      this.simulationConfig = new FormGroup({
+        requestInterval: new FormControl(this.requestInterval, [Validators.required]),
+        selectedLoadBalancingAlgorithm: new FormControl(this.loadBalancingAlgorithms[0]),
+      });
 
-  onAlgorithmChange() {
-    // Dispatch an action to update the selected algorithm in your application state
-    if (this.selectedLoadBalancingAlgorithm)
-    {
-      console.log(JSON.stringify(this.selectedLoadBalancingAlgorithm));
-      this.store.dispatch(
-        new SetSelectedLoadBalancingAlgorithm(this.selectedLoadBalancingAlgorithm)
-      );
-    }
+      this.simulationConfig.controls['selectedLoadBalancingAlgorithm'].setValue(this.loadBalancingAlgorithms[0], {onlySelf: true});
+
+      this.simulationConfig.get('selectedLoadBalancingAlgorithm')?.valueChanges.subscribe((value) => {
+        const id = parseInt(value);
+        this.store.dispatch(new SetSelectedLoadBalancingAlgorithm(id));
+      });
+
+      this.simulationConfig.get('requestInterval')?.valueChanges.subscribe((value) => {
+        this.store.dispatch(new SetRequestInterval(value));
+      });
   }
 
   stopSimulation() {
     this.stopSimulationEvent.emit();
   }
   startSimulation() {
-    
-    this.store.dispatch(new SetRequestInterval(this.requestInterval));
     this.startSimulationEvent.emit();
   }
   addServer() {

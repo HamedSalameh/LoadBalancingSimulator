@@ -15,7 +15,7 @@ export class StopSimulation {
 export class SetSelectedLoadBalancingAlgorithm {
     static readonly type = '[Simulation] Set Selected Load Balancing Algorithm';
 
-    constructor(public payload: LoadBalancingAlgorithm) {}
+    constructor(public payload: number) {}
 }
 
 export class SetRequestInterval {
