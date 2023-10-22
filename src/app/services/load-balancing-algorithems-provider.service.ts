@@ -14,7 +14,6 @@ export class LoadBalancingAlgorithemsProviderService {
     // populate the loadBalancingAlgorithms array with all the load balancing algorithms
     // that are available in the application
     this.loadBalancingAlgorithms.push(new RoundRobinAlgorithem());
-
   }
 
   // returns the load balancing algorithm with the given id

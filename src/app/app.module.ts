@@ -12,6 +12,9 @@ import { MapComponent } from './components/map/map.component';
 import { ServerComponent } from './components/server/server.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { LoadBalancerComponent } from './components/load-balancer/load-balancer.component';
+import { NgxsModule } from '@ngxs/store';
+import { SimulationState } from './state/simulation/simulation.state';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,13 @@ import { LoadBalancerComponent } from './components/load-balancer/load-balancer.
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+
+    // NGXS
+    NgxsModule.forRoot([
+      SimulationState
+    ]),
+    
     BrowserAnimationsModule, // add BrowserAnimationsModule to imports
     MatButtonModule, // add MatButtonsModule to imports
     MatSelectModule, // add MatSelectModule to imports

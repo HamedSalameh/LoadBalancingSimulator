@@ -4,12 +4,15 @@
       <label class="label">Load Balancing Algorithm</label>
       <div class="control">
         <div class="select is-fullwidth">
-          <select>
+          <select
+            [(ngModel)]="selectedLoadBalancingAlgorithm"
+            (change)="onAlgorithmChange()"
+          >
             <option
               *ngFor="let algorithm of loadBalancingAlgorithms"
-              [value]="algorithm"
+              [value]="algorithm.id"
             >
-              {{ algorithm }}
+              {{ algorithm.name }}
             </option>
           </select>
         </div>
@@ -20,6 +23,7 @@
       <label class="label">Request Frequency</label>
       <div class="control">
         <input
+          [(ngModel)]="requestInterval"
           class="input"
           type="number"
           placeholder="Frequency of Incoming Requests"
@@ -35,13 +39,22 @@
       </span>
       <span>Add Server</span>
     </button>
-    <button class="button" (click)="startSimulation()">
+
+    <button
+      class="button"
+      (click)="startSimulation()"
+      [disabled]="simluationRunning$ | async"
+    >
       <span class="icon">
         <i class="ph ph-play"></i>
       </span>
       <span>Start Simulation</span>
     </button>
-    <button class="button" (click)="stopSimulation()">
+    <button
+      class="button"
+      (click)="stopSimulation()"
+      [disabled]="!(simluationRunning$ | async)"
+    >
       <span class="icon">
         <i class="ph ph-stop"></i>
       </span>

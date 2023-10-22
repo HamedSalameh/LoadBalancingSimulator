@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { of } from 'rxjs';
 import { LoadBalancer } from 'src/app/models/load-balancer.model';
 import { Server } from 'src/app/models/server.model';
 import { LoadBalancerState, ServerStatus } from 'src/app/models/types';
 import { LoadBalancingAlgorithemsProviderService } from 'src/app/services/load-balancing-algorithems-provider.service';
+import { StartSimulation, StopSimulation } from 'src/app/state/simulation/simulation.actions';
+import { SimulationState } from 'src/app/state/simulation/simulation.state';
 
 @Component({
   selector: 'app-map',
@@ -13,8 +17,18 @@ export class MapComponent {
 
   mapServers : Server[] = [];
   mapLoadBalancers : LoadBalancer[] = [];
+  requestInterval$ = this.store.select(SimulationState.getRequestInterval) || of(500);
+  requestInterval: number = 500;
 
-  constructor(private loadBalancingAlgorithemProvider : LoadBalancingAlgorithemsProviderService) { }
+  constructor(
+    private store: Store,
+    private loadBalancingAlgorithemProvider : LoadBalancingAlgorithemsProviderService) { 
+
+      this.requestInterval$.subscribe((requestInterval) => {
+        this.requestInterval = requestInterval? requestInterval : 500;
+      });
+
+    }
 
   ngOnInit(): void {
     // init the list of 1 server for default
@@ -43,6 +57,9 @@ export class MapComponent {
     console.log('Starting simulation...');
 
     console.log('Starting load balancer...');
+    // patch the NGXS state
+    this.store.dispatch(new StartSimulation());
+
     if (activeLoadBalancer.state === LoadBalancerState.inactive) {
       console.log('Resuming load balancer...');
       activeLoadBalancer.start();
@@ -53,7 +70,7 @@ export class MapComponent {
 
     while (activeLoadBalancer.state === LoadBalancerState.active) {
       // sleep for 2 seconds
-      await new Promise(r => setTimeout(r, 500));
+      await new Promise(r => setTimeout(r, this.requestInterval ));
       activeLoadBalancer.handleRequest();
     }
   }
@@ -62,5 +79,6 @@ export class MapComponent {
     // TODO
     let activeLoadBalancer = this.mapLoadBalancers[0];
     activeLoadBalancer.stop();
+    this.store.dispatch(new StopSimulation());
   }
 }
