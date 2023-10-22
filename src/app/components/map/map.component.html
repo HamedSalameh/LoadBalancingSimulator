@@ -1,0 +1,17 @@
+<div class="map">
+  <div class="top-menu">
+    <app-menu (startSimulationEvent)="(this.startSimulation())" (stopSimulationEvent)="this.stopSimulation()"></app-menu>
+  </div>
+  <div class="servers">
+    <div *ngFor="let server of this.mapServers">
+      <app-server [server]="server"></app-server>
+    </div>
+  </div>
+  <div class="load-balancers">
+    <div *ngFor="let loadBalancer of this.mapLoadBalancers">
+      <app-load-balancer
+        [loadBalancerInstance]="loadBalancer"
+      ></app-load-balancer>
+    </div>
+  </div>
+</div>

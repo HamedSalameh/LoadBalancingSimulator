@@ -1,0 +1,40 @@
+.serverIcon {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fefefe;
+    margin: 1em;
+    padding: 5px;
+    border-radius: 5px;
+
+    p {
+        margin: 0px;
+        padding: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    i {
+        margin-bottom: 0.5em;
+        font-size: 32px
+    }
+}
+
+.idle {
+    background-color: #88e581;
+}
+
+.busy {
+    background-color: #e58181;
+}
+
+.offline {
+    background-color: #313131;
+    opacity: 0.5;
+}
