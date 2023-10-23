@@ -37,8 +37,10 @@ export class Server {
     // simulate processing a request
     this.status = ServerStatus.busy;
     this.connections++;
+    this.responseTime += 25;
     setTimeout(() => {
         this.connections--;
+        this.responseTime -= 25;
         if (this.connections === 0) {
         this.status = ServerStatus.idle;
       }

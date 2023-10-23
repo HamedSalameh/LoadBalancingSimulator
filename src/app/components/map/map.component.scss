@@ -24,6 +24,15 @@
   flex-wrap: wrap;
 }
 
+.clients {
+  padding: 1em;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
 .load-balancers {
   padding: 1em;
   display: flex;

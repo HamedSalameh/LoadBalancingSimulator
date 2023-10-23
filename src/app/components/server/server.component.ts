@@ -2,6 +2,7 @@ import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Server } from 'src/app/models/server.model';
 import { ServerStatus } from 'src/app/models/types';
+import { ServersPoolService } from 'src/app/services/servers-pool.service';
 
 @Component({
   selector: 'app-server',
@@ -14,13 +15,14 @@ export class ServerComponent {
 
   ServerStatus: any;
 
-  constructor() {}
+  constructor(private serverPool: ServersPoolService) {}
 
   ngOnInit(): void {
     console.log(this.server);
   }
 
   removeServer() {
-    this.RemoveServer.emit(this.server);
+    if (this.server)
+      this.serverPool.removeServer(this.server);
   }
 }

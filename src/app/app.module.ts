@@ -15,6 +15,7 @@ import { LoadBalancerComponent } from './components/load-balancer/load-balancer.
 import { NgxsModule } from '@ngxs/store';
 import { SimulationState } from './state/simulation/simulation.state';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ClientComponent } from './components/client/client.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MapComponent,
     ServerComponent,
     MenuComponent,
-    LoadBalancerComponent
+    LoadBalancerComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,

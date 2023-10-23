@@ -25,6 +25,10 @@ export class LoadBalancer {
     }
   }
 
+  clearServers() {
+    this.servers = [];
+  }
+
   public getLoadBalancingAlgorithm() {
     return this.loadBalancingAlgorithm;
   }
@@ -47,11 +51,7 @@ export class LoadBalancer {
     if (this.state === LoadBalancerState.active) {
       // get the next server based on the load balancing algorithm
       console.log('Handling request...');
-      console.log('Load Balancer: ' + this.name);
-      console.log('Load Balancer Address: ' + this.address);
-      console.log('Load Balancer State: ' + this.state);
-      console.log(
-        'Load Balancer Algorithm: ' + this.loadBalancingAlgorithm?.name
+      console.log('Load Balancer: ' + this.name + ', Address: ' + this.address + ', Algorithm: ' + this.loadBalancingAlgorithm?.name
       );
 
       if (this.loadBalancingAlgorithm) {

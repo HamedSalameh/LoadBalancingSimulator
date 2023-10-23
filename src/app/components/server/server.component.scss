@@ -39,6 +39,12 @@
     }
 }
 
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 .idle {
     background-color: #88e581;
 }

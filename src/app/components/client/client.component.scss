@@ -1,0 +1,22 @@
+.clientIcon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fefefe;
+    margin: 5px;
+    padding: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    border-radius: 5px;
+}
+
+i {
+    font-size: 32px;
+}
+
+span {
+    margin: 5px;
+}
+.busy {
+    background-color: #f27d08;
+}

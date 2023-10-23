@@ -26,8 +26,19 @@
       Clients: {{ this.server?.connections }}
     </p>
     <p>
-      <i class="ph ph-timer"></i>
-      Response: {{ this.server?.responseTime }}ms
-    </p>
+        <i class="ph ph-clock"></i>
+        Reponse: {{ this.server?.responseTime }}ms
+      </p>
   </div>
+
+  <div class="actions">
+    <button class="button is-white" (click)="this.removeServer()">
+      <span class="icon">
+        <i class="ph ph-power"></i>
+      </span>
+    </button>
+  </div>
+
+  <!-- show icon -->
+  <!-- server status icon : busy, idle, offline -->
 </div>

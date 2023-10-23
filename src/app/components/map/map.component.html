@@ -18,4 +18,9 @@
       ></app-load-balancer>
     </div>
   </div>
+  <div class="clients">
+    <div *ngFor="let client of this.mapClients">
+      <app-client [client]="client"></app-client>
+    </div>
+  </div>
 </div>
