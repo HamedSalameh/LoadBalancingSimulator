@@ -6,5 +6,5 @@ export interface LoadBalancingAlgorithm {
     // The name of the load balancing algorithm
     name: string;
     // The function that will be called when the load balancer is handling a request
-    SelectNextServer: (servers: Server[]) => Server | undefined;
+    SelectNextServer: (servers: Server[], ...args: any[]) => Server | undefined;
 }

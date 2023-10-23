@@ -14,7 +14,7 @@ export class Client {
   async sendRequest(activeLoadBalancer: LoadBalancer) {
     this.status = ServerStatus.busy;
     await new Promise((r) => setTimeout(r, 25));
-    activeLoadBalancer.handleRequest();
+    activeLoadBalancer.handleRequest( [this] );
     this.status = ServerStatus.idle;
   }
 }

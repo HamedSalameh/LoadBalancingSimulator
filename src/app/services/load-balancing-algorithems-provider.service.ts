@@ -3,6 +3,7 @@ import { RoundRobinAlgorithem } from '../algorithems/round-robim.algorithem';
 import { LoadBalancingAlgorithm } from '../algorithems/algorithem.interface';
 import { LeastConnectionsLoadBalancingAlgorithm } from '../algorithems/least-connections.algorithem';
 import { LeastResponseTimeAlgorithm } from '../algorithems/least-response-time.algorithem';
+import { StickyRoundRobinAlgorithem } from '../algorithems/sticky-round-robin.algorithem';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class LoadBalancingAlgorithemsProviderService {
     this.loadBalancingAlgorithms.push(new RoundRobinAlgorithem());
     this.loadBalancingAlgorithms.push(new LeastConnectionsLoadBalancingAlgorithm());
     this.loadBalancingAlgorithms.push(new LeastResponseTimeAlgorithm());
+    this.loadBalancingAlgorithms.push(new StickyRoundRobinAlgorithem());
   }
 
   // returns the load balancing algorithm with the given id

@@ -47,7 +47,7 @@ export class LoadBalancer {
     this.state = LoadBalancerState.inactive;
   }
 
-  handleRequest() {
+  handleRequest(_args: any[]) {
     if (this.state === LoadBalancerState.active) {
       // get the next server based on the load balancing algorithm
       console.log('Handling request...');
@@ -56,7 +56,7 @@ export class LoadBalancer {
 
       if (this.loadBalancingAlgorithm) {
         const nextServer = this.loadBalancingAlgorithm?.SelectNextServer(
-          this.servers
+          this.servers, _args
         );
         if (nextServer) {
           nextServer.handleRequest();

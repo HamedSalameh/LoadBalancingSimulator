@@ -1,6 +1,7 @@
 import { Server } from "../models/server.model";
+import { LoadBalancingAlgorithm } from "./algorithem.interface";
 
-export class LeastConnectionsLoadBalancingAlgorithm implements Algorithm {
+export class LeastConnectionsLoadBalancingAlgorithm implements LoadBalancingAlgorithm {
   id: number;
   name: string;
   description: string;

@@ -33,30 +33,16 @@ export class MapComponent {
 
   constructor(
     private store: Store,
-    private serverPool : ServersPoolService,
-    private clientsPool : ClientsPoolService,
+    private serverPool: ServersPoolService,
+    private clientsPool: ClientsPoolService,
     private loadBalancingAlgorithemProvider: LoadBalancingAlgorithemsProviderService
   ) {
+    this.createServerPool();
 
-    this.serverPool.addServer(new Server('Server 1', ServerStatus.idle, 1, '192.168.1.1', 112));
-    this.serverPool.addServer(new Server('Server 2', ServerStatus.idle, 1, '192.168.1.2', 50));
-    this.serverPool.addServer(new Server('Server 3', ServerStatus.idle, 1, '192.168.1.3', 200));
-    this.serverPool.addServer(new Server('Server 4', ServerStatus.idle, 1, '192.168.1.4', 142));
-
-    this.clientsPool.addClient(new Client('Client 1', '192.168.50.1'));
-    this.clientsPool.addClient(new Client('Client 2', '192.168.50.2'));
-    this.clientsPool.addClient(new Client('Client 1', '192.168.50.3'));
-    this.clientsPool.addClient(new Client('Client 2', '192.168.50.4'));
-    this.clientsPool.addClient(new Client('Client 1', '192.168.50.5'));
-    this.clientsPool.addClient(new Client('Client 2', '192.168.50.6'));
-    this.clientsPool.addClient(new Client('Client 1', '192.168.50.7'));
-    this.clientsPool.addClient(new Client('Client 2', '192.168.50.8'));
-    this.clientsPool.getClientsPool().subscribe((clients) => {
-      this.mapClients = clients;
-    });
+    this.createClientPool();
 
     let loadBalancer1 = new LoadBalancer('Load Balancer 1', '192.168.100.100');
-    
+
     this.handleServerPoolChanges(loadBalancer1);
 
     this.handleRequestIntervalChange();
@@ -64,6 +50,24 @@ export class MapComponent {
     this.mapLoadBalancers.push(loadBalancer1);
 
     this.setupLoadBalancingAlgorithm();
+  }
+
+  private createClientPool(clientsCount: number = 8) {
+    for (let i = 0; i < clientsCount; i++) {
+      this.clientsPool.addClient(
+        new Client('Client ' + (i + 1), '192.168.50.' + (i + 1))
+      );
+    }
+
+    this.clientsPool.getClientsPool().subscribe((clients) => {
+      this.mapClients = clients;
+    });
+  }
+
+  private createServerPool(serverCount: number = 4) {
+    for (let i = 0; i < serverCount; i++) {
+      this.serverPool.addServer(this.createServer());
+    }
   }
 
   private handleServerPoolChanges(loadBalancer1: LoadBalancer) {
@@ -86,10 +90,12 @@ export class MapComponent {
 
   private setupLoadBalancingAlgorithm() {
     this.selectedLoadBalancingAlgorithm$.subscribe(
-      selectedLoadBalancingAlgorithm => {
+      (selectedLoadBalancingAlgorithm) => {
         if (selectedLoadBalancingAlgorithm) {
-
-          const lba = this.loadBalancingAlgorithemProvider.getLoadBalancingAlgorithmById(selectedLoadBalancingAlgorithm);
+          const lba =
+            this.loadBalancingAlgorithemProvider.getLoadBalancingAlgorithmById(
+              selectedLoadBalancingAlgorithm
+            );
           if (lba) {
             this.mapLoadBalancers[0].setLoadBalancingAlgorithm(lba);
           }
@@ -123,7 +129,8 @@ export class MapComponent {
       //activeLoadBalancer.handleRequest();
 
       //  get random client
-      let randomClient = this.mapClients[Math.floor(Math.random() * this.mapClients.length)];
+      let randomClient =
+        this.mapClients[Math.floor(Math.random() * this.mapClients.length)];
       await randomClient.sendRequest(activeLoadBalancer);
     }
   }
@@ -145,11 +152,13 @@ export class MapComponent {
   private createServer(): Server {
     // create random wright between 1 to 10
     let randomWeight = Math.floor(Math.random() * 10) + 1;
+    let randomResponseTime = Math.floor(Math.random() * 100) + 1;
     return new Server(
       'Server ' + (this.mapServers.length + 1),
       ServerStatus.idle,
       randomWeight,
-      '192.168.1.' + (this.mapServers.length + 1)
+      '192.168.1.' + (this.mapServers.length + 1),
+      randomResponseTime
     );
   }
 }

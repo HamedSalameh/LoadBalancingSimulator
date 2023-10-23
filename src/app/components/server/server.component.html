@@ -1,5 +1,5 @@
 <div class="serverIcon {{ this.server?.status | lowercase }}">
-  <div class="title">
+  <div class="icon-title">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       data-name="Layer 1"
@@ -15,8 +15,11 @@
     <p>{{ this.server?.name }}</p>
   </div>
 
-  <p>{{ this.server?.address }}</p>
   <div class="legend">
+    <p>
+      <i class="ph ph-globe-hemisphere-west"></i>
+      {{ this.server?.address }}
+    </p>
     <p>
       <i class="ph ph-barbell"></i>
       Weight: {{ this.server?.weight }}
