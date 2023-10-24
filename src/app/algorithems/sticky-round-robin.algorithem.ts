@@ -16,19 +16,26 @@ export class StickyRoundRobinAlgorithem implements LoadBalancingAlgorithm {
     this.id = 2;
     this.name = 'Sticky Round Robin';
     this.description =
-      'Sticky Round Robin is a load balancing algorithem that will select the server with the least connections.';
+      'Sticky Round Robin is a load balancing algorithem that will select the next server in the list of servers in a round robin fashion. It will also try to stick a client to a server for 30 seconds.';
   }
 
   SelectNextServer(servers: Server[], args: any[]): Server | undefined {
     
     const client = args[0] as Client;
+    const STICKINESS_TIMEOUT = 30000;
+    
     // check if the client was already assigned a server and if last used in the past 30 seconds
     if (this.clientToServerMap.has(client.address)) {
       const server = this.clientToServerMap.get(client.address)!.server;
       const lastUsed = this.clientToServerMap.get(client.address)!.lastUsed;
-      if (Date.now() - lastUsed < 30000) {
-        console.log('Stickiness: client ' + client.address + ' is sticky to server ' + server.name);
+
+      if (Date.now() - lastUsed < STICKINESS_TIMEOUT) {
+        console.log(`Stickiness: client ${client.address} is sticky to server ${server.name}`);
         return server;
+      } else {
+        // If lastUsed is old, then remove the client from the map
+        this.clientToServerMap.delete(client.address);
+        console.log(`Removing client ${client.address} from the sticky map`);
       }
     }
 

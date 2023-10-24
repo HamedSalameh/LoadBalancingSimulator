@@ -37,14 +37,13 @@ export class MapComponent {
     private clientsPool: ClientsPoolService,
     private loadBalancingAlgorithemProvider: LoadBalancingAlgorithemsProviderService
   ) {
+    let loadBalancer1 = new LoadBalancer('Load Balancer 1', '192.168.100.100');
+    this.handleServerPoolChanges(loadBalancer1);
+
     this.createServerPool();
 
     this.createClientPool();
-
-    let loadBalancer1 = new LoadBalancer('Load Balancer 1', '192.168.100.100');
-
-    this.handleServerPoolChanges(loadBalancer1);
-
+    
     this.handleRequestIntervalChange();
 
     this.mapLoadBalancers.push(loadBalancer1);
