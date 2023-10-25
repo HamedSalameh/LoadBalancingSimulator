@@ -5,7 +5,30 @@
   height: 98vh;
 }
 
+.live-map {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  position: relative; /* Add this for positioning the pseudo-element */
+  // set the background an image with opacity of 25%
+  //background: url("../../../assets/network.png") no-repeat center center fixed;
+
+}
+
+.live-map::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("../../../assets/network.png");
+  background-size: cover no-repeat center;
+  opacity: 0.05;
+  width: 100%;
+  height: 100%;
+}
+
 .top-menu {
+  background-color: #f9f9f9;
   color: #fff;
   padding: 10px;
   text-align: center;
@@ -16,6 +39,7 @@
 }
 
 .servers {
+  z-index: 1;
   padding: 1em;
   display: flex;
   flex: 2;
@@ -25,6 +49,7 @@
 }
 
 .clients {
+  z-index: 1;
   padding: 1em;
   display: flex;
   flex: 1;
@@ -34,11 +59,14 @@
 }
 
 .load-balancers {
+
+  z-index: 1;
   padding: 1em;
   display: flex;
   flex: 1;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
   flex-wrap: wrap;
 }
 

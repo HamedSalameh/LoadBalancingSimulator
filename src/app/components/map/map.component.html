@@ -6,21 +6,23 @@
       (addServerEvent)="this.addServer()"
     ></app-menu>
   </div>
-  <div class="servers">
-    <div *ngFor="let server of this.mapServers">
-      <app-server [server]="server"></app-server>
+  <div class="live-map">
+    <div class="servers">
+      <div *ngFor="let server of this.mapServers">
+        <app-server [server]="server"></app-server>
+      </div>
     </div>
-  </div>
-  <div class="load-balancers">
-    <div *ngFor="let loadBalancer of this.mapLoadBalancers">
-      <app-load-balancer
-        [loadBalancerInstance]="loadBalancer"
-      ></app-load-balancer>
+    <div class="load-balancers">
+      <div *ngFor="let loadBalancer of this.mapLoadBalancers">
+        <app-load-balancer
+          [loadBalancerInstance]="loadBalancer"
+        ></app-load-balancer>
+      </div>
     </div>
-  </div>
-  <div class="clients">
-    <div *ngFor="let client of this.mapClients">
-      <app-client [client]="client"></app-client>
+    <div class="clients">
+      <div *ngFor="let client of this.mapClients">
+        <app-client [client]="client"></app-client>
+      </div>
     </div>
   </div>
 </div>
